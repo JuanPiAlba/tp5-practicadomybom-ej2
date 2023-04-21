@@ -8,8 +8,16 @@ let fechadnacim = document.getElementById("fechadnacmiento");
 let btnformulario = document.getElementById("btnformulario");
 let mostrarDatos = document.getElementById("mostrarDatos");
 let mostrarGeneracion = document.getElementById("mostrarGeneracion");
+let mostarNombre = document.getElementById('mostrarNombre')
+let visualizarDatos = document.getElementById('visualizarDatos')
+let visualizadorGeneracion = document.getElementById('visualizadorGeneracion')
+
+let prueba 
 
 btnformulario.addEventListener("submit", generacion);
+mostrarDatos.addEventListener("click", mostrarDatosFormulario);
+mostrarGeneracion.addEventListener('click', mostrarDatosGeneracion);
+
 
 function generacion(e) {
   e.preventDefault();
@@ -18,7 +26,7 @@ function generacion(e) {
     edad.value.length > 0 &&
     dni.value.length > 0 &&
     fechadnacim.value.length > 0
-  ) {
+    ) {
     const nuevaPersona = new Persona(
       nombre.value,
       edad.value,
@@ -28,9 +36,25 @@ function generacion(e) {
       altura.value,
       fechadnacim.value
     );
+    
+      prueba = nuevaPersona     
+      
     let incorporacion = document.getElementById("incorporacion");
-    incorporacion.children[0].children[0].innerHTML = `${nuevaPersona.mostarNombre}`;
+    incorporacion.classList.remove('d-none')
+    mostarNombre.innerHTML = `<p>La Persona es: ${nuevaPersona.mostarNombre}</p>`;
+    mostrarDatos.classList.remove('d-none')
+    mostrarGeneracion.classList.remove('d-none')       
   }
+}
+
+function mostrarDatosFormulario(){
+  console.log(prueba)
+  visualizarDatos.innerHTML = `${prueba.mostrarDatos()}`
+}
+
+function mostrarDatosGeneracion(){
+  visualizadorGeneracion.innerHTML = `${prueba.mostrarGeneracion()}`
+  
 }
 
 class Persona {
@@ -82,6 +106,6 @@ class Persona {
     //devuelve toda la información del objeto. // ul y li
   }
   get mostarNombre() {
-    return this.nombre;
+    return this.Nombre;
   }
 }
