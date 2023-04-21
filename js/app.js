@@ -9,7 +9,29 @@ let btnformulario = document.getElementById("btnformulario");
 let mostrarDatos = document.getElementById("mostrarDatos");
 let mostrarGeneracion = document.getElementById("mostrarGeneracion");
 
-btnformulario.addEventListener("submit", mostrarGeneracion);
+btnformulario.addEventListener("submit", generacion);
+
+function generacion(e) {
+  e.preventDefault();
+  if (
+    nombre.value.length > 0 &&
+    edad.value.length > 0 &&
+    dni.value.length > 0 &&
+    fechadnacim.value.length > 0
+  ) {
+    const nuevaPersona = new Persona(
+      nombre.value,
+      edad.value,
+      dni.value,
+      sexo.value,
+      peso.value,
+      altura.value,
+      fechadnacim.value
+    );
+    let incorporacion = document.getElementById("incorporacion");
+    incorporacion.children[0].children[0].innerHTML = `${nuevaPersona.mostarNombre}`;
+  }
+}
 
 class Persona {
   constructor(nombre, edad, dni, sexo, peso, altura, anionacimiento) {
@@ -35,9 +57,9 @@ class Persona {
       return "Generacion Silent Generation, de 1930 al 1948 con Conflictos Belicos y con rasgos caracteristico de Auteridad";
     } else {
       return "<p>No hay datos para mostrar</p>";
-    }    
+    }
   }
-  
+
   esMayorDeEdad() {
     if (this.edad >= 18) {
       return true;
@@ -52,11 +74,14 @@ class Persona {
     <li>Nombre y Apellido: ${this.Nombre}</li>
     <li>Apellido:${this.Edad}</li>
     <li>Dni: ${this.Dni}</li>
-    <li>Sexo: ${this.sexo === "H" ? "Hombre" : "Mujer"}</li>
+    <li>Sexo: ${this.Sexo === "H" ? "Hombre" : "Mujer"}</li>
     <li>Peso: ${this.Peso}</li>
     <li>Altura: ${this.Altura}</li>
     <li>Fecha de Nacimiento: ${this.Anionacimiento}</li>
     </ul>`;
     //devuelve toda la información del objeto. // ul y li
+  }
+  get mostarNombre() {
+    return this.nombre;
   }
 }
